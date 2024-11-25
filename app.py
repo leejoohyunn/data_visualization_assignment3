@@ -49,13 +49,11 @@ def load_data():
 # 데이터 로드
 df_seoul_pop_cleaned, gdf = load_data()
 
-# 나머지 코드는 동일...
-
 # 사이드바
 st.sidebar.header("📊 데이터 필터")
 selected_year = st.sidebar.selectbox(
     "연도 선택",
-    ["2024"]  # 실제 데이터에 맞게 연도 리스트 수정
+    ["2023"]  
 )
 
 # 메인 컨텐츠를 3개 컬럼으로 분할
@@ -65,9 +63,9 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("<div class='stat-box'>", unsafe_allow_html=True)
     st.metric(
-        label="총 인구수",
-        value=f"{df_seoul_pop_cleaned['인구수'].sum():,.0f}명",
-        delta="2.5% vs 전년"  # 실제 데이터에 맞게 수정
+        label="가장 높은 출생률",
+        value=f"{df_seoul_pop_cleaned['인구수'].max():,.0f}명",
+        delta="2023년 최상위 출생률"  
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -76,7 +74,7 @@ with col2:
     st.metric(
         label="평균 출생률",
         value=f"{df_seoul_pop_cleaned['인구수'].mean():,.1f}명",
-        delta="-1.2% vs 전년"  # 실제 데이터에 맞게 수정
+        delta="2023년 평균 출생률"  
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -85,7 +83,7 @@ with col3:
     st.metric(
         label="가장 높은 인구 구역",
         value=df_seoul_pop_cleaned.loc[df_seoul_pop_cleaned['인구수'].idxmax(), '행정구'],
-        delta="변동없음"  # 실제 데이터에 맞게 수정
+        delta="변동없음"  
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -137,7 +135,7 @@ with col_map:
     folium_static(m)
 
 with col_chart:
-    st.subheader("📊 구별 인구 분포")
+    st.subheader("📊 시군구별 출생률 분포")
     
     # 막대 차트
     fig_bar = px.bar(
@@ -145,7 +143,7 @@ with col_chart:
         x='인구수',
         y='행정구',
         orientation='h',
-        title='상위 10개 구 인구 현황',
+        title='상위 10개 출생률 현황',
         color='인구수',
         color_continuous_scale='RdYlBu'
     )
@@ -163,7 +161,7 @@ with col_chart:
         df_seoul_pop_cleaned,
         values='인구수',
         names='행정구',
-        title='구별 인구 비율'
+        title='출생률 비율'
     )
     fig_pie.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
