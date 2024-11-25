@@ -64,7 +64,7 @@ with col1:
     st.markdown("<div class='stat-box'>", unsafe_allow_html=True)
     st.metric(
         label="가장 높은 출생률",
-        value=f"{df_seoul_pop_cleaned['인구수'].max():,.0f}명",
+        value=f"{df_seoul_pop_cleaned['인구수'].max():,.1f}명",
         delta="2023년 최상위 출생률"  
     )
     st.markdown("</div>", unsafe_allow_html=True)
